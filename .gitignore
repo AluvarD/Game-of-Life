@@ -1,0 +1,15 @@
+/Game of Life/task/build/
+/.gradle/
+/gradle/
+/Problems/**/out/
+/Game of Life/task/out/
+/.idea/frameworkLessonHistory/
+/**/*.iml
+/**/*.html
+/**/*.txt
+/**/*.yaml
+/**/*.css
+/**/*.bat
+/**/*.jar
+/**/*.properties
+/**/*.xml
