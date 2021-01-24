@@ -179,5 +179,11 @@ files:
     }
   learner_created: false
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: "Wrong answer in test #2\n\nPlease find below the output of your program\
+    \ during this failed test.\nNote that the &#39;&gt;&#39; character indicates the\
+    \ beginning of the input line.\n\n---\n\n&gt; 8 1 10\n        \n        \n   \
+    \     \n        \n O O    \n O  O   \n O  O   \n  OO"
+  time: Sun, 24 Jan 2021 11:32:18 UTC
 record: -1
