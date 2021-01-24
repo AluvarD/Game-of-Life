@@ -9,14 +9,15 @@ public class Main {
 
         char[][] universe = new char[Integer.parseInt(input[0])][Integer.parseInt(input[0])];
         fillUniverse(universe, Integer.parseInt(input[1]), Integer.parseInt(input[0]));
+        //printUniverseDebug(universe, Integer.parseInt(input[0]));
 
         for (int i = 0; i < Integer.parseInt(input[2]); i++) {
-            System.out.print("\n Generation: " + (i + 1) + "\n");
+            //System.out.print("\n Generation: " + (i + 1) + "\n");
             universeGeneration(universe, Integer.parseInt(input[0]));
-            printUniverse(universe, Integer.parseInt(input[0]));
+            //printUniverseDebug(universe, Integer.parseInt(input[0]));
         }
 
-        //printUniverse(universe, Integer.parseInt(input[0]));
+        printUniverse(universe, Integer.parseInt(input[0]));
     }
 
     static String input() {
@@ -50,7 +51,34 @@ public class Main {
         }
     }
 
-    static void universeGeneration (char[][] universe, int size) {
+    /* Method for beauty print
+    static void printUniverseDebug (char[][] universe, int size) {
+        for (int i = 0; i < size; i++){
+            System.out.print("-");
+        }
+        System.out.print("\n");
+        for (int i = 0; i < size; i++) {
+            System.out.print("|");
+            for (int j = 0; j < size; j++) {
+                if (universe[i][j] == 'O') {
+                    System.out.print(universe[i][j]);
+                    System.out.print("|");
+                } else {
+                    System.out.print("_");
+                    System.out.print("|");
+                }
+            }
+            System.out.print("\n");
+        }
+        for (int i = 0; i < size; i++){
+            System.out.print("-");
+        }
+    }
+
+     */
+
+    /* It's work for stage 2, where space is limited
+    static void universeGenerationLimitedSpace (char[][] universe, int size) {
         int count = 0;
         char[][] tempUniverse = copyUniverse(universe, size);;
 
@@ -210,6 +238,66 @@ public class Main {
                     }
                     count = 0;
                 }
+            }
+        }
+    }
+     */
+
+    static void universeGeneration(char[][] universe, int size) {
+        int count = 0;
+        char[][] tempUniverse = copyUniverse(universe, size);
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                for (int n = i - 1; n < i + 2; n++) {
+                    for (int m = j - 1; m < j + 2; m++) {
+                        if (n >= size && m >= size) {
+                            if (tempUniverse[n - size][m - size] == 'O') {
+                                count++;
+                            }
+                        } else if (n >= size && m < 0) {
+                            if (tempUniverse[n - size][m + size] == 'O') {
+                                count++;
+                            }
+                        } else if (n < 0 && m >= size) {
+                            if (tempUniverse[n + size][m - size] == 'O') {
+                                count++;
+                            }
+                        } else if (n < 0 && m < 0) {
+                            if (tempUniverse[n + size][m + size] == 'O') {
+                                count++;
+                            }
+                        } else if (n < 0) {
+                            if (tempUniverse[n + size][m] == 'O') {
+                                count++;
+                            }
+                        } else if (n >= size) {
+                            if (tempUniverse[n - size][m] == 'O') {
+                                count++;
+                            }
+                        } else if (m >= size) {
+                            if (tempUniverse[n][m - size] == 'O') {
+                                count++;
+                            }
+                        } else if (m < 0) {
+                            if (tempUniverse[n][m + size] == 'O') {
+                                count++;
+                            }
+                        } else if (tempUniverse[n][m] == 'O') {
+                            count++;
+                        }
+                    }
+                }
+                if (universe[i][j] == 'O' && (count - 1 < 2 || count - 1 > 3)) {
+                    universe[i][j] = ' ';
+                    //System.out.println(i + " " + j + " die");
+                }
+                if (universe[i][j] == ' ' && count == 3) {
+                    universe[i][j] = 'O';
+                    //System.out.println(i + " " + j + " life");
+                }
+                count = 0;
+
             }
         }
     }
