@@ -1,5 +1,6 @@
 package life;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -245,7 +246,8 @@ public class Main {
 
     static void universeGeneration(char[][] universe, int size) {
         int count = 0;
-        char[][] tempUniverse = copyUniverse(universe, size);
+        //char[][] tempUniverse = copyUniverse(universe, size);
+        char[][] tempUniverse = Arrays.stream(universe).map(char[]::clone).toArray(char[][]::new);
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -302,6 +304,7 @@ public class Main {
         }
     }
 
+    /* use without stream
     static char[][] copyUniverse (char[][] universe, int size) {
         char[][] copy = new char[size][size];
         for (int i = 0; i < size; i++) {
@@ -311,4 +314,5 @@ public class Main {
         }
         return copy;
     }
+     */
 }
