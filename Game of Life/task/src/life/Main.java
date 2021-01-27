@@ -18,6 +18,7 @@ public class Main {
             //printUniverseDebug(universe, Integer.parseInt(input[0]));
         }
 
+        //printUniverseDebug(universe, Integer.parseInt(input[0]));
         printUniverse(universe, Integer.parseInt(input[0]));
     }
 
@@ -75,8 +76,8 @@ public class Main {
             System.out.print("-");
         }
     }
-
      */
+
 
     /* It's work for stage 2, where space is limited
     static void universeGenerationLimitedSpace (char[][] universe, int size) {
