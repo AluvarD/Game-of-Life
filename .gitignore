@@ -13,3 +13,4 @@
 /**/*.jar
 /**/*.properties
 /**/*.xml
+/out/
