@@ -1,18 +1,20 @@
 package life;
 
+import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
-        String[] input = input().split(" ");
+    public static void main(String[] args) throws InterruptedException, InvocationTargetException {
+        //String[] input = input().split(" ");
 
-        char[][] universe = new char[Integer.parseInt(input[0])][Integer.parseInt(input[0])];
+        char[][] universe = new char[30][30];
         Random random = new Random();
         int seed = random.nextInt();
-        GameOfLife.gameOfLife(universe, seed, Integer.parseInt(input[0]));
 
+        GameOfLifeProcess.gameOfLifeProcess(universe, seed, 30);
     }
 
     static String input() {
