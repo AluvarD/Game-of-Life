@@ -643,5 +643,21 @@ files:
 
   learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/299/implement#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #7
+
+    When PlayToggleButton is toggled the program should generate new generations! The number in GenerationLabel should change!
+    Also make sure your program doesn&#39;t sleep more than 150 ms after each generation!
+
+    Please find below the output of your program during this failed test.
+
+    ---
+
+    Generation #1
+    Generation #1
+    Generation #1
+    Generation #1
+  time: Sun, 07 Feb 2021 18:25:51 UTC
 record: -1

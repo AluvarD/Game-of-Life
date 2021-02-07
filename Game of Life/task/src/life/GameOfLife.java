@@ -2,12 +2,17 @@ package life;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.lang.reflect.InvocationTargetException;
 
 public class GameOfLife extends JFrame {
 
-    private JLabel generation = new JLabel();
-    private JLabel alive = new JLabel();
-    private JPanel[][] cells;
+    private final JLabel generation = new JLabel();
+    private final JLabel alive = new JLabel();
+    private final JPanel[][] cells;
+    public boolean play = true;
 
     public GameOfLife() {
         super("Game of Life");
@@ -24,6 +29,42 @@ public class GameOfLife extends JFrame {
         statistic.add(generation);
         statistic.add(alive);
 
+        //button
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        JToggleButton button = new JToggleButton("Play");
+        button.setName("PlayToggleButton");
+        button.addItemListener(itemEvent -> {
+            int state = itemEvent.getStateChange();
+            if (state == ItemEvent.SELECTED) {
+                button.setText("Pause");
+                play = false;
+            } else {
+                button.setText("Play");
+                play = true;
+            }
+        });
+
+        JButton resetButton = new JButton("Reset");
+        resetButton.setName("ResetButton");
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                GameOfLifeProcess.reset = true;
+            }
+        });
+
+        buttonPanel.add(button);
+        buttonPanel.add(resetButton);
+
+        //control panel
+        JPanel control = new JPanel();
+        control.setLayout(new BoxLayout(control, BoxLayout.Y_AXIS));
+        buttonPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        statistic.setAlignmentX(Component.LEFT_ALIGNMENT);
+        control.add(statistic);
+        control.add(buttonPanel);
+
         //universe
         JPanel universeView = new JPanel();
         universeView.setLayout(new GridLayout(30, 30));
@@ -38,7 +79,7 @@ public class GameOfLife extends JFrame {
         }
 
         setLayout(new BorderLayout());
-        add(statistic, BorderLayout.NORTH);
+        add(control, BorderLayout.NORTH);
         add(universeView, BorderLayout.CENTER);
         setVisible(true);
     }
@@ -61,5 +102,9 @@ public class GameOfLife extends JFrame {
                 }
             }
         }
+    }
+
+    public boolean isPlay() {
+        return play;
     }
 }
