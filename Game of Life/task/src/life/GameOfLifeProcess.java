@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class GameOfLifeProcess {
-
-    private static final long mainThreadId = Thread.currentThread().getId();
     public static boolean reset = false;
 
     static void start () throws InterruptedException {
@@ -22,20 +20,16 @@ public class GameOfLifeProcess {
         while (true) {
             fillUniverse(universe, seed, size);
 
-            //System.out.println("Generation: #" + 1);
-            //System.out.println("Alive: " + aliveCount(universe, size));
             view.setGeneration(1);
             view.setAlive(aliveCount(universe, size));
-            //printUniverse(universe, size);
 
             int i = 2;
             while (!reset) {
                 while (!view.isPlay() && !reset) {
-                    Thread.sleep(10L);
+                    Thread.sleep(50L);
                 }
                 UniverseGeneration universeGeneration = new UniverseGeneration(universe, size);
-                universeGeneration.start();
-                universeGeneration.join();
+                universeGeneration.run();
 
 
                 System.out.println("Generation: #" + i);
@@ -43,7 +37,6 @@ public class GameOfLifeProcess {
                 view.setGeneration(i);
                 view.setAlive(aliveCount(universe, size));
                 view.setUniverse(universe);
-                //printUniverse(universe, size);
 
 
                 if (aliveCount(universe, size) == 0) {
@@ -71,15 +64,6 @@ public class GameOfLifeProcess {
         }
     }
 
-    static void printUniverse (char[][] universe, int size) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                System.out.print(universe[i][j]);
-            }
-            System.out.print("\n");
-        }
-    }
-
     static Integer aliveCount(char[][] universe, int size) {
         int count = 0;
         for (int i = 0; i < size; i++) {
@@ -93,7 +77,7 @@ public class GameOfLifeProcess {
     }
 
 
-    static class UniverseGeneration extends Thread {
+    static class UniverseGeneration implements Runnable {
         char[][] universe;
         int size;
 
@@ -104,14 +88,8 @@ public class GameOfLifeProcess {
 
         @Override
         public void run() {
-            final long currentId = Thread.currentThread().getId();
-
-            if (currentId == mainThreadId) {
-                throw new RuntimeException("You must start a new thread!");
-            }
-
             try {
-                Thread.sleep(100L);
+                Thread.sleep(500L);
                 int count = 0;
                 char[][] tempUniverse = Arrays.stream(universe).map(char[]::clone).toArray(char[][]::new);
 
